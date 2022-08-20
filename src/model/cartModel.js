@@ -1,4 +1,5 @@
-let mongoose = require('mongoose')
+// let mongoose = require('mongoose')
+import mongoose from "mongoose"
 let ObjectId = mongoose.Schema.Types.ObjectId
 
 let cartSchema = new mongoose.Schema({

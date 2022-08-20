@@ -1,6 +1,6 @@
 let cartModel = require('../model/cartModel')
 let productModel = require('../model/productModel')
-let mongoose = require('mongoose')
+
 let validator = require('../validation/validator')
 
 //==============================================CREATE CART BY USERID================================================
@@ -31,7 +31,7 @@ let createCart = async (req, res) => {
         if ("cartId" in req.body) {
             if (typeof cartId != "string") return res.status(400).send({ status: false, message: 'cartId should be string' })
             if (!validator.isValid(cartId)) return res.status(400).send({ status: false, message: 'please enter cartId ' })
-            if (!mongoose.isValidObjectId(cartId)) return res.status(400).send({ status: false, message: 'invalid cartId' })
+            if (!validator.isValidObjectId(cartId)) return res.status(400).send({ status: false, message: 'invalid cartId' })
             findCart = await cartModel.findOne({ _id: cartId, userId })
             if (!findCart) return res.status(404).send({ status: false, message: 'cart id does not exists' })
 
@@ -89,7 +89,7 @@ const updatedCart = async (req, res) => {
         if (typeof cartId != "string") return res.status(400).send({ status: false, message: 'cartId should be string' })
 
         if (!validator.isValid(cartId)) return res.status(400).send({ status: false, message: 'cart Id should not be empty' })
-        if (!(mongoose.isValidObjectId(cartId))) return res.status(400).send({ status: false, message: 'please enter valid cart Id' })
+        if (!(validator.isValidObjectId(cartId))) return res.status(400).send({ status: false, message: 'please enter valid cart Id' })
         let findCart = await cartModel.findOne({ _id: cartId, userId })
         if (!findCart) return res.status(404).send({ status: false, message: 'cart not found' })
 
